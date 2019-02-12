@@ -48,7 +48,7 @@ namespace CompactCNNLib
 		expr;					\
 		CNND_mutex.unlock();	\
 	
-	FaceDetector::Param paramConverter(CNNDetector::Param& CNND_param, CNNDetector::AdvancedParam& CNND_ad_param)
+	FaceDetector::Param paramConverter(const CNNDetector::Param& CNND_param, const CNNDetector::AdvancedParam& CNND_ad_param)
 	{
 		FaceDetector::Param param;
 
@@ -506,6 +506,7 @@ namespace CompactCNNLib
 			else return -1;
 #endif
 		}
+		return -1;
 	}
 
 	void FaceDetector::CNTKDump2Binary(const char* binary_file, const char* cntk_model_dump)

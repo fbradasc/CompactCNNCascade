@@ -19,15 +19,30 @@
 
 #pragma once
 
-#ifdef CNNOBJECTDETECTOR_EXPORTS
+#if defined(_MSC_VER) // Windows
+# ifdef CNNOBJECTDETECTOR_EXPORTS
 #	define COMPACTCNNLIB_API __declspec(dllexport) 
-#else
+# else
 #	define COMPACTCNNLIB_API __declspec(dllimport) 
+# endif
+#elif defined(__GNUC__) // linux
+# ifdef CNNOBJECTDETECTOR_EXPORTS
+#	define COMPACTCNNLIB_API __attribute__((visibility("default")))
+# else
+#	define COMPACTCNNLIB_API
+# endif
+#else //  do nothing and hope for the best?
+# ifdef CNNOBJECTDETECTOR_EXPORTS
+#	define COMPACTCNNLIB_API
+# else
+#	define COMPACTCNNLIB_API
+# endif
+# pragma warning Unknown dynamic link import/export semantics.
 #endif
-
 
 //========================================================================================================
 
+#include <stdlib.h>
 
 namespace CompactCNNLib
 {
@@ -49,7 +64,7 @@ namespace CompactCNNLib
 		};
 		enum struct DetectPrecision
 		{
-			default = 0,
+			defval = 0,
 			low = 1,
 			normal = 2,
 			high = 3,

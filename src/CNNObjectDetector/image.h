@@ -72,6 +72,7 @@ namespace NeuralNetworksLib
 			inline bool isEmpty() const { return data == 0; }
 			inline void setSize(const Size& size) { width = size.width; height = size.height; }
 			inline Size getSize() const { return Size(width, height); }
+			TmpImage<type>& operator=(const TmpImage<type>& _img);
 			TmpImage<type>& operator=(TmpImage<type>& _img);
 			inline type* operator()(size_t offset = 0) const;
 			inline type& operator[](size_t idx);
@@ -269,6 +270,25 @@ namespace NeuralNetworksLib
 		}
 
 		template <typename type>
+		TmpImage<type>& TmpImage<type>::operator=(const TmpImage<type>& _img)
+		{
+			if (this == &_img) return *this;
+			if (!isEmpty()) clear();
+
+			width = _img.width;
+			height = _img.height;
+			size = _img.size;
+			widthStep = _img.widthStep;
+			nChannel = _img.nChannel;
+			data = _img.data;
+			alignData = _img.alignData;
+			sharingData = _img.sharingData;
+			indices = _img.indices;
+
+			return *this;
+		}
+
+		template <typename type>
 		type* TmpImage<type>::operator()(size_t offset) const
 		{
 			return data + offset;
@@ -288,13 +308,13 @@ namespace NeuralNetworksLib
 		public:
 			TmpArray() : TmpImage<type>() { }
 			TmpArray(int _size, int _align = 0) : TmpImage<type>(_size, 1, _align) { }
-#if defined(_MSC_VER)        
-			TmpArray<type>& operator=(TmpArray<type>& _img)
-			{ 
+// #if defined(_MSC_VER)
+			TmpArray<type>& operator=(const TmpArray<type>& _img)
+			{
 				*((TmpImage<type>*)this) = (TmpImage<type>&)_img;
 				return *this;
 			};
-#endif
+// #endif
 		};
 		typedef TmpArray<uchar_> Array_8u;
 		typedef TmpArray<uint_> Array_32u;
@@ -328,6 +348,13 @@ namespace NeuralNetworksLib
 					delete[] ref;
 					ref = 0;
 				}
+			}
+			TmpRef<type>& operator=(const TmpRef<type>& _ref)
+			{
+				if (this == &_ref) return *this;
+				if (!isEmpty()) clear();
+
+				return *this;
 			}
 			TmpRef<type>& operator=(TmpRef<type>& _ref)
 			{

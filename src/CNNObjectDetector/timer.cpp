@@ -30,7 +30,8 @@ namespace NeuralNetworksLib
 
 	Timer::Timer(int n, bool _start)
 	{
-		this->counters = new std::chrono::steady_clock::time_point[n];
+		// this->counters = new std::chrono::steady_clock::time_point[n];
+		this->counters = new std::chrono::high_resolution_clock::time_point[n];
 
 		if (_start)
 		{

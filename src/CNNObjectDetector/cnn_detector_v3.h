@@ -384,7 +384,7 @@ namespace NeuralNetworksLib
 		void RunCPUDetect();
 		void RunGPUDetect();
 
-		inline void Merger(std::vector<Detection>& detections, std::vector<Detection>& rect, float threshold = 0.5f, bool del = false);
+		void Merger(std::vector<Detection>& detections, std::vector<Detection>& rect, float threshold = 0.5f, bool del = false);
 
 		public: void* hGrd = 0;
 

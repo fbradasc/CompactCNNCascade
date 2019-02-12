@@ -42,7 +42,8 @@ namespace NeuralNetworksLib
 	class Timer
 	{
 	private:
-		std::chrono::steady_clock::time_point* counters;
+		// std::chrono::steady_clock::time_point* counters;
+		std::chrono::high_resolution_clock::time_point* counters;
 
 	public:
 		Timer(int = 1, bool = false);
@@ -86,7 +87,8 @@ namespace NeuralNetworksLib
 		{
 		private:
 			cl_command_queue queue;
-			std::chrono::steady_clock::time_point counters;
+			// std::chrono::steady_clock::time_point counters;
+			std::chrono::high_resolution_clock::time_point counters;
 
 		public:
 			Timer(cl_command_queue _queue = NULL, bool = false);

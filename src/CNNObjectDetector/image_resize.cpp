@@ -202,7 +202,7 @@ namespace NeuralNetworksLib
 #endif
 
 #if defined(USE_SSE) || defined(USE_AVX) || defined(USE_AVX2)
-			__m128i ymm_mask = { 0, 2, 4, 6, 1, 3, 5, 7, 8, 10, 12, 14, 9, 11, 13, 15 };
+			__m128i ymm_mask = _mm_setr_epi8( 0, 2, 4, 6, 1, 3, 5, 7, 8, 10, 12, 14, 9, 11, 13, 15 );
 #else
 			uchar_ ymm_mask[16] = { 0, 2, 4, 6, 1, 3, 5, 7, 8, 10, 12, 14, 9, 11, 13, 15 };
 #endif
